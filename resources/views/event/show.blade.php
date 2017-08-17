@@ -19,6 +19,10 @@
     <div class="col-sm-3 category">Location</div>
     <div class="col-sm-8 item">{{$service_type->location}}</div>
 </div><p></p>
+<div class="row">
+    <div class="col-sm-3 category">Estimated Attendance</div>
+    <div class="col-sm-8 item">{{$service_type->attendance}}</div>
+</div><p></p>
 @if($service_type->display)
 <div class="row">
     <div class="col-sm-3 category">Display/Promotional Items Needed</div>

@@ -40,26 +40,26 @@ class BaseController extends Controller
 //            ->where($this::TABLE_NAME . '.status','=', 'Received')
 //            ->orderBy($this::TABLE_NAME  .'.created_at', 'desc')
 //            ->get();
-        $receiveds = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, users where ' . $this::TABLE_NAME . '.status = 
-        "Received" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = users.id');
+        $receiveds = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
+        "Received" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
 
-        $progresses = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, users where ' . $this::TABLE_NAME . '.status = 
-        "In Progress" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = users.id');
+        $progresses = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
+        "In Progress" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
 
-        $informations = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, users where ' . $this::TABLE_NAME . '.status = 
-        "Awaiting Information" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = users.id');
+        $informations = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
+        "Awaiting Information" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
 
-        $reviews = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, users where ' . $this::TABLE_NAME . '.status = 
-        "Awaiting Review" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = users.id');
+        $reviews = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
+        "Awaiting Review" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
 
-        $cancelleds = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, users where ' . $this::TABLE_NAME . '.status = 
-        "Cancelled" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = users.id');
+        $cancelleds = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
+        "Cancelled" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
 
-        $completes = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, users where ' . $this::TABLE_NAME . '.status = 
-        "Complete" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = users.id');
+        $completes = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
+        "Complete" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
 
-        $feedbacks = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, users where ' . $this::TABLE_NAME . '.status = 
-        "Customer Feedback" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = users.id');
+        $feedbacks = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
+        "Customer Feedback" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
 
 //        $progresses=  DB::table($this::TABLE_NAME)->join('service_requests', $this::TABLE_NAME . '.service_requests_id', '=', 'service_requests.id')
 //            ->where($this::TABLE_NAME . '.status','=', 'In Progress')
@@ -312,10 +312,10 @@ class BaseController extends Controller
         $media_name = $this::MEDIA_NAME;
         $view_folder = $this::VIEW_FOLDER;
         $datas = DB::select(
-            'SELECT ' .$this::TABLE_NAME .'.id, ' .$this::TABLE_NAME .'.created_at, users.name, ' .$this::TABLE_NAME .'.details 
-            FROM ' .$this::TABLE_NAME .', service_requests, users 
+            'SELECT ' .$this::TABLE_NAME .'.id, ' .$this::TABLE_NAME .'.created_at, customers.name, ' .$this::TABLE_NAME .'.details 
+            FROM ' .$this::TABLE_NAME .', service_requests, customers 
             where ' .$this::TABLE_NAME .'.status = "'        . $status . '" and ' .$this::TABLE_NAME .'.service_requests_id = service_requests.id 
-            and service_requests.user_id = users.id order by service_requests.created_at desc');
+            and service_requests.user_id = customers.id order by service_requests.created_at desc');
 //        $service_type = $model_name::where('status', '=', $string)->get();
 //        dd($status_list);
 //        dd($datas);
