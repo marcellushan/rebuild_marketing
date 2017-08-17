@@ -90,7 +90,7 @@ Route::get('service/{name}', 'ServiceController@serviceName');
 Route::get('by_service', 'ServiceController@byService');
 //Route::get('testmail', 'ServiceController@testMail');
 //Route::get('services_list', 'ServiceController@servicesList')->middleware('auth');
-Route::get('services_list', 'ServiceController@servicesList');
+Route::get('services_list', 'ServiceController@servicesList')->middleware('auth');
 
 //Comments
 Route::post('comments/update', 'CommentsController@update');
