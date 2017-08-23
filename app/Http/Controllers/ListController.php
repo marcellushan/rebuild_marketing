@@ -64,7 +64,7 @@ class ListController extends Controller
     public function show($id)
     {
         $data = ServiceRequests::find($id);
-        $user_info = User::find($data->user_id);
+        $user_info = Customer::find($data->user_id);
         (@$data->pressRelease ? $press_release = $data->pressRelease : $press_release = '');
         (@$data->designPrinting ? $design_printing = $data->designPrinting : $design_printing = '');
         (@$data->photography ? $photography = $data->photography : $photography = '');

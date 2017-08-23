@@ -172,6 +172,8 @@ class ServiceRequestController extends Controller
      */
     public function show($id)
     {
+        if(! session('customer_id'))
+            return redirect('service_request');
         $data = ServiceRequests::find($id);
         $user_info = Customer::find($data->user_id);
 //        dd($data);

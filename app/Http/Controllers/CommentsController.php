@@ -46,11 +46,12 @@ class CommentsController extends Controller
         $comment->service = $request->service;
         $comment->status = $request->status;
 //       $comment->username = auth()->user()->name;
-        if(@auth()->user) {
+        if(@auth()->user()) {
             $comment->username = auth()->user()->name;
         } else {
             $comment->username = "Customer";
         }
+//        dd(auth()->user());
 //        $comment->username = $user->name;
         if($request->comment) {
             $comment->comment = $request->comment;
