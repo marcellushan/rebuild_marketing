@@ -95,6 +95,9 @@ Route::get('services_list', 'ServiceController@servicesList')->middleware('auth'
 //Comments
 Route::post('comments/update', 'CommentsController@update');
 
+Route::get('customer', function ()  {
+    return view('customer');
+});
 
 
 
