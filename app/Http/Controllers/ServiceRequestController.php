@@ -27,20 +27,59 @@ class ServiceRequestController extends Controller
     {
 
         if(\App::environment() =='local') {
-//            $_SESSION['nameIdentifier'] = 'mhannah';
-//            $_SESSION['attributes']['givenname'] = 'Marc';
-//            $_SESSION['attributes']['surname'] = 'Hannah';
-//            $_SESSION['attributes']['Group'] = 'IT';
-            return redirect('service_request/create');
-            dd($_SESSION);
+
+            $username = 'jjones';
+            $givenname = 'Joe';
+            $surname = 'Jones';
+            $department = 'IT';
+            $customer = Customer::firstOrCreate(['email' => $username . '@highlands.edu','name' => $givenname . ' ' . $surname, 'department' => $department]);
+            session(['customer_id' => $customer->id]);
+//            return view('service_request.create')->with(compact('customer'));
+            return redirect('customer');
         } else {
             if(! @$_SESSION['AdfsUserDetails']) {
                 $url='../../marctest/myform.php';
                 echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
             } else {
-                return redirect('service_request/create');
+                $username = $_SESSION['nameIdentifier'];
+                $givenname = implode(" ", $_SESSION['attributes']['givenname']);
+                $surname = implode(" ", $_SESSION['attributes']['surname']);
+                $department = implode(" ", $_SESSION['attributes']['Group']);
+                $customer = Customer::firstOrCreate(['email' => $username . '@highlands.edu','name' => $givenname . ' ' . $surname, 'department' => $department]);
+                $_SESSION['customer_id'] = $customer->id;
+                session(['customer_id' => $customer->id]);
+//                dd($_SESSION['customer_id']);
+//                return view('service_request.create')->with(compact('customer'));
+                return redirect('customer');
             }
         }
+
+//        $customer = Customer::firstOrCreate(['email' => $username . '@highlands.edu','name' => $givenname . ' ' . $surname, 'department' => $department]);
+//        session(['customer_id' => $customer->id]);
+//        return view('service_request.create')->with(compact('customer'));
+
+//        $user = User::firstOrCreate(['name' => 'Joe Hannah', 'email' => 'jhannah@highlands.edu','department' => 'HR']);
+//        dd(\App::environment());
+
+//            echo "here";
+//        }
+
+
+//        if(\App::environment() =='local') {
+////            $_SESSION['nameIdentifier'] = 'mhannah';
+////            $_SESSION['attributes']['givenname'] = 'Marc';
+////            $_SESSION['attributes']['surname'] = 'Hannah';
+////            $_SESSION['attributes']['Group'] = 'IT';
+//            return redirect('service_request/create');
+//            dd($_SESSION);
+//        } else {
+//            if(! @$_SESSION['AdfsUserDetails']) {
+//                $url='../../marctest/myform.php';
+//                echo '<META HTTP-EQUIV=REFRESH CONTENT="1; '.$url.'">';
+//            } else {
+//                return redirect('service_request/create');
+//            }
+//        }
 
 //        $user = User::firstOrCreate(['name' => 'Joe Hannah', 'email' => 'jhannah@highlands.edu','department' => 'HR']);
 //        dd(\App::environment());
@@ -59,20 +98,41 @@ class ServiceRequestController extends Controller
      */
     public function create()
     {
-        if(\App::environment() =='local') {
-            $username = 'jjones';
-            $givenname = 'Joe';
-            $surname = 'Jones';
-            $department = 'IT';
-        } else {
-            $username = $_SESSION['nameIdentifier'];
-            $givenname = implode(" ", $_SESSION['attributes']['givenname']);
-            $surname = implode(" ", $_SESSION['attributes']['surname']);
-            $department = implode(" ", $_SESSION['attributes']['Group']);
-        }
-        $customer = Customer::firstOrCreate(['email' => $username . '@highlands.edu','name' => $givenname . ' ' . $surname, 'department' => $department]);
-//        $_SESSION['user_id'] = $user->id;
+        //        dd($_SESSION['customer_id']);
+//        if (! @$_SESSION['customer_id'])
+        if(! session('customer_id'))
+            return redirect('service_request');
+//        $customer = Customer::find($_SESSION['customer_id']);
+        $customer = Customer::find(session('customer_id'));
+//        dd($customer);
+//        if(\App::environment() =='local') {
+//            $username = 'jjones';
+//            $givenname = 'Joe';
+//            $surname = 'Jones';
+//            $department = 'IT';
+//        } else {
+//            $username = $_SESSION['nameIdentifier'];
+//            $givenname = implode(" ", $_SESSION['attributes']['givenname']);
+//            $surname = implode(" ", $_SESSION['attributes']['surname']);
+//            $department = implode(" ", $_SESSION['attributes']['Group']);
+//        }
+//        $customer = Customer::firstOrCreate(['email' => $username . '@highlands.edu','name' => $givenname . ' ' . $surname, 'department' => $department]);
+//        $_SESSION['customer_id'] = $customer->id;
         return view('service_request.create')->with(compact('customer'));
+//        if(\App::environment() =='local') {
+//            $username = 'jjones';
+//            $givenname = 'Joe';
+//            $surname = 'Jones';
+//            $department = 'IT';
+//        } else {
+//            $username = $_SESSION['nameIdentifier'];
+//            $givenname = implode(" ", $_SESSION['attributes']['givenname']);
+//            $surname = implode(" ", $_SESSION['attributes']['surname']);
+//            $department = implode(" ", $_SESSION['attributes']['Group']);
+//        }
+//        $customer = Customer::firstOrCreate(['email' => $username . '@highlands.edu','name' => $givenname . ' ' . $surname, 'department' => $department]);
+////        $_SESSION['user_id'] = $user->id;
+//        return view('service_request.create')->with(compact('customer'));
     }
 
     /**
