@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class ListController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
 
@@ -25,7 +26,8 @@ class ListController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+//        $user = Auth::user();
+        $user = \App\Customer::find(session('customer_id'));
 //        dd($user);
         $service_requests = ServiceRequests::where('user_id', '=', $user->id)->orderBy('created_at','desc')->get();
 //        dd($service_requests);
