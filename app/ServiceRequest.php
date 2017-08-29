@@ -54,6 +54,11 @@ class ServiceRequests extends Model
         return $this->hasOne('App\User');
     }
 
+    public function customer()
+    {
+        return $this->belongsTo('App\Customer');
+    }
+
 //    public function delete()
 //    {
 ////        ($this->pressRelease() ? $this->pressRelease()->delete():"");

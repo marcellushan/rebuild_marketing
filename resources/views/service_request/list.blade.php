@@ -17,6 +17,9 @@
                        <th>
 
                         </th>
+                        <th>
+
+                        </th>
                     </tr>
                     @foreach($service_requests as $service_request)
                         <tr>
@@ -24,6 +27,7 @@
                             <td>{{$service_request->summary}}</td>
                             <td>{{date_format(new DateTime($service_request->created_at),'m/d/y')}}</td>
                             <td><a href="{{URL::to('/')}}/admin/{{$service_request->id}}">Details</a></td>
+                            <td><a href="{{URL::to('/')}}/service_request/delete_service_request/{{$service_request->id}}">Delete</a></td>
                         </tr>
                     @endforeach
                 </table>

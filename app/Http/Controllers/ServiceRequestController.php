@@ -221,7 +221,7 @@ class ServiceRequestController extends Controller
      */
     public function destroy($id)
     {
-        $sr = Customer::find($id);
+        $sr = ServiceRequests::find($id);
         $sr->delete();
     }
 
@@ -245,5 +245,12 @@ class ServiceRequestController extends Controller
 //        $userinfo = User::find($data->customer_id);
 //        \Mail::to($userinfo->email)->send(new ClientMail($data));
 //        return view('thankyou');
+    }
+
+    public function deleteServiceRequest($id)
+    {
+        $serviceRequest = ServiceRequests::find($id);
+//        dd($service_request->customer);
+        return view('service_request.destroy')->with(compact('serviceRequest'));
     }
 }

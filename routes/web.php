@@ -24,9 +24,10 @@ Route::get('clients/thank_you/{id}', 'ClientsController@thankYou');
 Route::resource('service_request', 'ServiceRequestController');
 Route::get('service_request/thank_you/{id}', 'ServiceRequestController@thankYou');
 Route::get('service_request/by_user/{id}', 'ServiceRequestController@byUser');
-Route::get('delete', function () {
-    return view('service_request.destroy');
-});
+Route::get('service_request/delete_service_request/{id}', 'ServiceRequestController@deleteServiceRequest');
+//Route::get('delete/{id}', function () {
+//    return view('service_request.destroy', ['id' => {id}]);
+//});
 
 //Press Release
 Route::resource('press_release', 'PressReleaseController');
