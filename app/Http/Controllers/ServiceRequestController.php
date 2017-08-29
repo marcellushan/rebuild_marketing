@@ -104,7 +104,7 @@ class ServiceRequestController extends Controller
             return redirect('service_request');
 //        $customer = Customer::find($_SESSION['customer_id']);
         $customer = Customer::find(session('customer_id'));
-//        dd($customer);
+//        dd(session('customer_id'));
 //        if(\App::environment() =='local') {
 //            $username = 'jjones';
 //            $givenname = 'Joe';
@@ -131,7 +131,7 @@ class ServiceRequestController extends Controller
 //            $department = implode(" ", $_SESSION['attributes']['Group']);
 //        }
 //        $customer = Customer::firstOrCreate(['email' => $username . '@highlands.edu','name' => $givenname . ' ' . $surname, 'department' => $department]);
-////        $_SESSION['user_id'] = $user->id;
+////        $_SESSION[''] = $user->id;
 //        return view('service_request.create')->with(compact('customer'));
     }
 
@@ -147,9 +147,9 @@ class ServiceRequestController extends Controller
         $data = $request->all();
         $service_request = new ServiceRequests($data);
         $service_request->fill($data);
-//        $service_request->user_id = session('user_id');
+        $service_request->customer_id = session('customer_id');
         $service_request->save();
-        session()->put('user_id', $service_request->user_id);
+        session()->put('customer_id', $service_request->customer_id);
 
         Session::put('press_release',$request->press_release);
         Session::put('design_printing',$request->design_printing);
@@ -175,7 +175,7 @@ class ServiceRequestController extends Controller
         if(! session('customer_id'))
             return redirect('service_request');
         $data = ServiceRequests::find($id);
-        $user_info = Customer::find($data->user_id);
+        $user_info = Customer::find($data->customer_id);
 //        dd($data);
         (@$data->pressRelease ? $press_release = $data->pressRelease : $press_release = '');
         (@$data->designPrinting ? $design_printing = $data->designPrinting : $design_printing = '');
@@ -229,7 +229,7 @@ class ServiceRequestController extends Controller
     {
         $data = ServiceRequests::find($id);
 //        dd($data);
-        $userinfo = Customer::find(session('user_id'));
+        $userinfo = Customer::find(session('customer_id'));
         \Mail::to($userinfo->email)
             ->cc('mhannah@highlands.edu')
             ->send(new ClientMail($data));
@@ -238,11 +238,11 @@ class ServiceRequestController extends Controller
 
     public function byUser($id)
     {
-        $service_requests = ServiceRequests::where('user_id', '=', $id)->orderBy('created_at','desc')->get();
+        $service_requests = ServiceRequests::where('customer_id', '=', $id)->orderBy('created_at','desc')->get();
         dd($service_requests);
         return view('service_request.user_list')->with(compact('service_requests'));
 //        $data = ServiceRequests::find($id);
-//        $userinfo = User::find($data->user_id);
+//        $userinfo = User::find($data->customer_id);
 //        \Mail::to($userinfo->email)->send(new ClientMail($data));
 //        return view('thankyou');
     }

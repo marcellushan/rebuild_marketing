@@ -43,9 +43,9 @@ class BaseEmail extends Mailable
         $data = ServiceRequests::find(Session::get('id'));
 //        $client = Auth::user();
 //        dd(session('user_id'));
-        $user_id = session('user_id');
-        $client = Customer::find($user_id);
-//        dd(session('user_id'));
+        $customer_id = session('customer_id');
+        $client = Customer::find($customer_id);
+//        dd($data);
         $service_method = $this::METHOD;
         $view_folder=$this::VIEW_FOLDER;
         $service_name = $this::MEDIA_NAME;

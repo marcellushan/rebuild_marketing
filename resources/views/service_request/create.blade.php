@@ -9,7 +9,7 @@
         </h2>
     </div>
     {{Form::open(array('url' => 'service_request', 'id' => 'service_request'))}}
-        {{Form::hidden('user_id', $customer->id)}}
+        {{Form::hidden('customer_id', $customer->id)}}
              <div class="row">
                  <div class="col-sm-8 col-sm-offset-2">
                      <div class="form-group">
