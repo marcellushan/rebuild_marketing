@@ -34,8 +34,14 @@ class CreateDesignPrintingsTable extends Migration
             $table->string('image')->nullable();
             $table->string('status')->default("Received");
 //            $table->integer('clients_id');
-            $table->integer('service_requests_id');
+            $table->unsignedInteger('service_requests_id');
             $table->timestamps();
+        });
+
+        Schema::table('design_printings', function(Blueprint $table){
+            $table->foreign('service_requests_id')
+                ->references('id')->on('service_requests')
+                ->onDelete('cascade');
         });
     }
 

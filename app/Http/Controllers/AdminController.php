@@ -34,7 +34,7 @@ class AdminController extends Controller
         $service_requests = (ServiceRequests::orderBy('created_at', 'desc')->get());
 
 //        $service_requests= DB::table('service_requests')->join('customers', 'customers.id', '=', 'service_requests.user_id')
-        $service_requests= DB::table('customers')->join('service_requests', 'customers.id', '=', 'service_requests.user_id')
+        $service_requests= DB::table('customers')->join('service_requests', 'customers.id', '=', 'service_requests.customer_id')
 //            ->where($this::TABLE_NAME . '.status','=', 'Received')
             ->orderBy('service_requests.created_at', 'desc')
             ->get();
@@ -73,7 +73,7 @@ class AdminController extends Controller
     public function show($id)
     {
         $data = ServiceRequests::where('id', '=', $id)->orderBy('created_at', 'desc')->first();
-        $user_info = Customer::find($data->user_id);
+        $user_info = Customer::find($data->customer_id);
         (@$data->pressRelease ? $press_release = $data->pressRelease : $press_release = '');
         (@$data->designPrinting ? $design_printing = $data->designPrinting : $design_printing = '');
         (@$data->photography ? $photography = $data->photography : $photography = '');

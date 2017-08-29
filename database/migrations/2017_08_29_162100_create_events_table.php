@@ -45,9 +45,15 @@ class CreateEventsTable extends Migration
             $table->string('sponsor_website')->nullable();
             $table->date('rsvp')->nullable();
             $table->string('status')->default("Received");
-            $table->integer('service_requests_id');
+            $table->unsignedInteger('service_requests_id');
 //            $table->integer('clients_id')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('events', function(Blueprint $table){
+            $table->foreign('service_requests_id')
+                ->references('id')->on('service_requests')
+                ->onDelete('cascade');
         });
     }
 

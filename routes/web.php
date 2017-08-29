@@ -24,6 +24,9 @@ Route::get('clients/thank_you/{id}', 'ClientsController@thankYou');
 Route::resource('service_request', 'ServiceRequestController');
 Route::get('service_request/thank_you/{id}', 'ServiceRequestController@thankYou');
 Route::get('service_request/by_user/{id}', 'ServiceRequestController@byUser');
+Route::get('delete', function () {
+    return view('service_request.destroy');
+});
 
 //Press Release
 Route::resource('press_release', 'PressReleaseController');
@@ -77,9 +80,14 @@ Route::get('paid_advertising/status_show/{id}', 'PaidAdvertisingController@statu
 //Event
 Route::resource('event', 'EventController');
 Route::get('event/marcom_show/{id}', 'EventController@marcomShow')->middleware('auth');
+//Route::get('event/marcom_show/{id}', 'EventController@marcomShow');
 Route::get('event/customer_show/{id}', 'EventController@customerShow');
 Route::get('event/request_status/{string}', 'EventController@requestStatus');
 Route::get('event/status_show/{id}', 'EventController@statusShow');
+
+//Route::get('test', 'TestDeleteController@index');
+//Route::post('test/gone/{id}', 'TestDeleteController@gone');
+
 
 
 Route::resource('admin', 'AdminController');

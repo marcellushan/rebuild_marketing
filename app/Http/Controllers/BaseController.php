@@ -41,25 +41,25 @@ class BaseController extends Controller
 //            ->orderBy($this::TABLE_NAME  .'.created_at', 'desc')
 //            ->get();
         $receiveds = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
-        "Received" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
+        "Received" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.customer_id = customers.id');
 
         $progresses = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
-        "In Progress" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
+        "In Progress" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.customer_id = customers.id');
 
         $informations = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
-        "Awaiting Information" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
+        "Awaiting Information" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.customer_id = customers.id');
 
         $reviews = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
-        "Awaiting Review" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
+        "Awaiting Review" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.customer_id = customers.id');
 
         $cancelleds = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
-        "Cancelled" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
+        "Cancelled" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.customer_id = customers.id');
 
         $completes = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
-        "Complete" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
+        "Complete" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.customer_id = customers.id');
 
         $feedbacks = DB::select('SELECT * FROM ' . $this::TABLE_NAME . ', service_requests, customers where ' . $this::TABLE_NAME . '.status = 
-        "Customer Feedback" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.user_id = customers.id');
+        "Customer Feedback" and ' . $this::TABLE_NAME . '.service_requests_id = service_requests.id and service_requests.customer_id = customers.id');
 
 //        $progresses=  DB::table($this::TABLE_NAME)->join('service_requests', $this::TABLE_NAME . '.service_requests_id', '=', 'service_requests.id')
 //            ->where($this::TABLE_NAME . '.status','=', 'In Progress')
@@ -275,7 +275,7 @@ class BaseController extends Controller
         $service_type = $model_name::find($id);
 //        dd($service_type);
         $service_request = ServiceRequests::find($service_type->service_requests_id);
-        $user = Customer::find($service_request->user_id);
+        $user = Customer::find($service_request->customer_id);
 //        dd($user);
 //        dd($user_info);
         $comments = \App\Comments::where('services_id', '=', $service_type->id)->where('service', '=', $this::MODEL_NAME)->orderBy('created_at','desc')
@@ -296,7 +296,7 @@ class BaseController extends Controller
 //        $service_type = $model_name::where('service_requests_id', '=', $id)->first();
         $service_type = $model_name::find($id);
         $service_request = ServiceRequests::find($service_type->service_requests_id);
-        $user = Customer::find($service_request->user_id);
+        $user = Customer::find($service_request->customer_id);
 //        dd($service_type);
         $comments = \App\Comments::where('services_id', '=', $service_type->id)->where('service', '=', $this::MODEL_NAME)->orderBy('created_at','desc')->get();
         $view_folder = $this::VIEW_FOLDER;
@@ -317,7 +317,7 @@ class BaseController extends Controller
             'SELECT ' .$this::TABLE_NAME .'.id, ' .$this::TABLE_NAME .'.created_at, customers.name, ' .$this::TABLE_NAME .'.details 
             FROM ' .$this::TABLE_NAME .', service_requests, customers 
             where ' .$this::TABLE_NAME .'.status = "'        . $status . '" and ' .$this::TABLE_NAME .'.service_requests_id = service_requests.id 
-            and service_requests.user_id = customers.id order by service_requests.created_at desc');
+            and service_requests.customer_id = customers.id order by service_requests.created_at desc');
 //        $service_type = $model_name::where('status', '=', $string)->get();
 //        dd($status_list);
 //        dd($datas);

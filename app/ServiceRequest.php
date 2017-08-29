@@ -54,13 +54,14 @@ class ServiceRequests extends Model
         return $this->hasOne('App\User');
     }
 
-    public function delete()
-    {
-        $this->pressRelease()->delete();
-        $this->designPrintings()->delete();
-        $this->photography()->delete();
-
-        return parent::delete();
-    }
+//    public function delete()
+//    {
+////        ($this->pressRelease() ? $this->pressRelease()->delete():"");
+////        ($this->designPrintings() ? $this->designPrintings()->delete():"");
+////        $this->designPrintings->delete();
+////        $this->photography()->delete();
+//
+//        return parent::delete();
+//    }
 
 }

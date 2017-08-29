@@ -36,9 +36,15 @@ class CreateSocialMediaTable extends Migration
 //            $table->boolean('instagram')->nullable();
 //            $table->boolean('youtube')->nullable();
             $table->string('status')->default("Received");
-            $table->integer('service_requests_id');
+            $table->unsignedInteger('service_requests_id');
 //            $table->integer('clients_id');
             $table->timestamps();
+        });
+
+        Schema::table('social_media', function(Blueprint $table){
+            $table->foreign('service_requests_id')
+                ->references('id')->on('service_requests')
+                ->onDelete('cascade');
         });
     }
 

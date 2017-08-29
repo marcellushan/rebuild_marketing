@@ -23,9 +23,15 @@ class CreatePhotosTable extends Migration
             $table->string('end_time')->nullable();
             $table->string('status')->default("Received");
 //            $table->integer('clients_id');
-            $table->integer('service_requests_id');
+            $table->unsignedInteger('service_requests_id');
             $table->timestamps();
 
+        });
+
+        Schema::table('photos', function(Blueprint $table){
+            $table->foreign('service_requests_id')
+                ->references('id')->on('service_requests')
+                ->onDelete('cascade');
         });
     }
 

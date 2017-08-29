@@ -221,7 +221,8 @@ class ServiceRequestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sr = Customer::find($id);
+        $sr->delete();
     }
 
     public function thankYou($id)

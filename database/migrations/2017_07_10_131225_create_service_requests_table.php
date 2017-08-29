@@ -16,8 +16,15 @@ class CreateServiceRequestsTable extends Migration
         Schema::create('service_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->text('summary')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->unsignedInteger('customer_id')->nullable();
             $table->timestamps();
+        });
+
+
+        Schema::table('service_requests', function(Blueprint $table){
+            $table->foreign('customer_id')
+                ->references('id')->on('customers')
+                ->onDelete('cascade');
         });
     }
 
