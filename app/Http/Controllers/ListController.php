@@ -29,7 +29,7 @@ class ListController extends Controller
 //        $user = Auth::user();
         $user = \App\Customer::find(session('customer_id'));
 //        dd($user);
-        $service_requests = ServiceRequests::where('user_id', '=', $user->id)->orderBy('created_at','desc')->get();
+        $service_requests = ServiceRequests::where('customer_id', '=', $user->id)->orderBy('created_at','desc')->get();
 //        dd($service_requests);
         return view('list.user')->with(compact('service_requests','user'));
     }
