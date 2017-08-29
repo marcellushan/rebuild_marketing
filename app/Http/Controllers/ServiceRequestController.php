@@ -223,6 +223,7 @@ class ServiceRequestController extends Controller
     {
         $sr = ServiceRequests::find($id);
         $sr->delete();
+        return redirect('admin');
     }
 
     public function thankYou($id)
