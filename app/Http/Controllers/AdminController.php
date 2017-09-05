@@ -40,7 +40,7 @@ class AdminController extends Controller
             ->get();
 
 //        dd($service_requests);
-        return view('service_request.list')->with(compact('service_requests'));
+        return view('admin.list')->with(compact('service_requests'));
     }
 
     /**
@@ -83,7 +83,7 @@ class AdminController extends Controller
         (@$data->socialMedia ? $social_media = $data->socialMedia : $social_media = '');
         (@$data->event ? $event = $data->event : $event = '');
 //        dd($photography);
-        return view('service_request.admin_show')->with(compact('data','user_info','press_release', 'design_printing','photography',
+        return view('admin.service_request_show')->with(compact('data','user_info','press_release', 'design_printing','photography',
             'videography','paid_advertising','presentation','social_media','event'));
     }
 

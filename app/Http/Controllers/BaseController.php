@@ -86,7 +86,7 @@ class BaseController extends Controller
 //            ->get();
         $media_name = $this::MEDIA_NAME;
         $view_folder = $this::VIEW_FOLDER;
-        return view('trim_list')->with(compact('datas','receiveds','progresses','informations', 'reviews','cancelleds','completes','feedbacks','media_name','view_folder'));
+        return view('admin.status_list')->with(compact('datas','receiveds','progresses','informations', 'reviews','cancelleds','completes','feedbacks','media_name','view_folder'));
 //        echo $this::TABLE_NAME;
     }
 
