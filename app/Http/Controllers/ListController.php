@@ -27,6 +27,8 @@ class ListController extends Controller
     public function index()
     {
 //        $user = Auth::user();
+        if(! session('customer_id'))
+            return redirect('service_request');
         $user = \App\Customer::find(session('customer_id'));
 //        dd($user);
         $service_requests = ServiceRequests::where('customer_id', '=', $user->id)->orderBy('created_at','desc')->get();
@@ -64,7 +66,7 @@ class ListController extends Controller
     public function show($id)
     {
         $data = ServiceRequests::find($id);
-        $user_info = Customer::find($data->user_id);
+        $user_info = Customer::find($data->customer_id);
         (@$data->pressRelease ? $press_release = $data->pressRelease : $press_release = '');
         (@$data->designPrinting ? $design_printing = $data->designPrinting : $design_printing = '');
         (@$data->photography ? $photography = $data->photography : $photography = '');
@@ -73,7 +75,7 @@ class ListController extends Controller
         (@$data->presentation ? $presentation = $data->presentation : $presentation = '');
         (@$data->socialMedia ? $social_media = $data->socialMedia : $social_media = '');
         (@$data->event ? $event = $data->event : $event = '');
-//        dd($photography);
+//        dd($data);
         return view('service_request.show')->with(compact('data','user_info','press_release',
             'design_printing','photography','videography','paid_advertising','presentation','social_media','event'));
     }
