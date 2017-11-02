@@ -5,17 +5,17 @@ $(document).ready(function () {
         if($("input[name=payment_type]:checked").val()=='Transfer Funds') {
             $("#transfer").css("display", "block");
             $("#grant").css("display", "none");
-            $(".fund").attr("required","");
+            // $(".fund").attr("required","");
             $("#grant_field").removeAttr("required");
         } else if($("input[name=payment_type]:checked").val()=='Grant')  {
             $("#transfer").css("display", "none");
             $("#grant").css("display", "block");
             $("#grant_field").attr("required","");
-            $(".fund").removeAttr("required");
+            // $(".fund").removeAttr("required");
         } else {
             $("#transfer").css("display", "none");
             $("#grant").css("display", "none");
-            $(".fund").removeAttr("required");
+            // $(".fund").removeAttr("required");
             $("#grant_field").removeAttr("required");
         }
 
